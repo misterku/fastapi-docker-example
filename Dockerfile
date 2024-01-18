@@ -1,7 +1,7 @@
 FROM ubuntu:jammy
 
 RUN mkdir /app
-RUN apt update
+RUN apt update && apt upgrade -y
 RUN apt install -y python3 python3-pip curl netcat
 
 ADD requirements.txt run.sh main.py /app
