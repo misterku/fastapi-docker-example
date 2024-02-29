@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from prometheus_fastapi_instrumentator import Instrumentator
+import torch
 
 app = FastAPI()
 Instrumentator().instrument(app).expose(app)
@@ -9,6 +10,12 @@ Instrumentator().instrument(app).expose(app)
 def root():
     return {
         'foo': 'bar'
+    }
+
+@app.get("/gpu")
+def root():
+    return {
+        'gpu': torch.cuda.is_available()
     }
 
 @app.get("/urls")
